@@ -43,16 +43,18 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id).destroy
   end
 
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Micropost.from_users_followed_by(self)
+  end
+
   private
 
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
   end
 
-  def feed
-    # This is preliminary. See "Following users" for the full implementation.
-    Micropost.from_users_followed_by(self)
-  end
+
 
 
 end
